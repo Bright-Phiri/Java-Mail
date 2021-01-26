@@ -38,12 +38,12 @@ public class CheckingMail {
             Session session = Session.getDefaultInstance(properties);
             Store store = session.getStore("imaps");
             store.connect("imap.gmail.com", "your email here !!", "email account password here!!");
-            Folder[] folder = store.getDefaultFolder().list("*");
-            for (Folder folder1 : folder) {
-                System.out.println(folder1.getFullName());
-                if (folder1.getFullName().equals("[Gmail]/Trash")) {
-                    folder1.open(Folder.READ_WRITE);
-                    Message[] messages = folder1.getMessages();
+            Folder[] folders = store.getDefaultFolder().list("*");
+            for (Folder folder : folders) {
+                System.out.println(folder.getFullName());
+                if (folder.getFullName().equals("[Gmail]/Trash")) {
+                    folder.open(Folder.READ_WRITE);
+                    Message[] messages = folder.getMessages();
                     for (Message message : messages) {
                         message.setFlag(Flags.Flag.DELETED, true);
                     }
